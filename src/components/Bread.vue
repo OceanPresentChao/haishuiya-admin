@@ -5,8 +5,8 @@
 -->
 <template>
     <el-breadcrumb :separator-icon="ArrowRight">
-        <el-breadcrumb-item v-for="(item, key) in routeBread" :key="key">
-            <router-link v-if="item.path !== undefined" :to="item.path">{{ item.title }}</router-link>
+        <el-breadcrumb-item v-for="(item, key) in breadList" :key="item.path">
+            <router-link v-if="item.path" :to="item.path">{{ item.meta.title }}</router-link>
             <span v-else>{{ item.title }}</span>
         </el-breadcrumb-item>
     </el-breadcrumb>
@@ -14,26 +14,15 @@
 
 <script setup>
 import { ArrowRight } from '@element-plus/icons-vue'
-import { ref, toRaw } from 'vue'
-import { useRoute } from 'vue-router'
 const route = useRoute();
-const routeBread = ref([]);
-const routeTitle = ref('');
-route.matched.filter((item) => {
-    if (item.meta.title) {
-        const title = item.meta.title;
-        const path = item.path;
-        routeBread.value.push({
-            title: title,
-            path: path,
-        })
+let breadList = ref([]);
+watch(route, () => {
+    breadList.value.splice(0,);
+    route.matched.forEach((item) => { breadList.value.push(item) });
+    if (route.matched[0] && route.matched[0].path !== '/home') {
+        breadList.value.unshift({ path: '/home', meta: { title: '首页' } })
     }
-})
-routeBread.value.unshift({
-    title: "首页",
-    path: '/',
-})
-routeTitle.value = toRaw(route).meta.value.title;
+}, { immediate: true })
 </script>
 <style lang="css" scoped>
 * {

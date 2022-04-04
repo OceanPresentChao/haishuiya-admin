@@ -12,9 +12,13 @@ declare module 'vue' {
     ElBreadcrumb: typeof import('element-plus/es')['ElBreadcrumb']
     ElBreadcrumbItem: typeof import('element-plus/es')['ElBreadcrumbItem']
     ElButton: typeof import('element-plus/es')['ElButton']
+    ElCard: typeof import('element-plus/es')['ElCard']
+    ElCol: typeof import('element-plus/es')['ElCol']
     ElContainer: typeof import('element-plus/es')['ElContainer']
     ElDatePicker: typeof import('element-plus/es')['ElDatePicker']
     ElDialog: typeof import('element-plus/es')['ElDialog']
+    ElDivider: typeof import('element-plus/es')['ElDivider']
+    ElFooter: typeof import('element-plus/es')['ElFooter']
     ElForm: typeof import('element-plus/es')['ElForm']
     ElFormItem: typeof import('element-plus/es')['ElFormItem']
     ElHeader: typeof import('element-plus/es')['ElHeader']
@@ -38,6 +42,8 @@ declare module 'vue' {
     Layout: typeof import('./components/Layout.vue')['default']
     LeftMenu: typeof import('./components/LeftMenu.vue')['default']
     Manager: typeof import('./views/Activity/Manager.vue')['default']
+    TodoList: typeof import('./views/TodoList.vue')['default']
+    Weather: typeof import('./views/Weather.vue')['default']
   }
 }
 

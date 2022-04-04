@@ -4,7 +4,6 @@
  * @Date: 2022-03-15 13:13:22
 -->
 <template>
-    <Bread></Bread>
     <div style="text-align: left; margin: 10px 0;">
         <el-button type="primary" size="large" @click="handleCreate">创建活动</el-button>
     </div>

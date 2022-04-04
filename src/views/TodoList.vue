@@ -82,12 +82,7 @@
                         <div>Tasks</div>
                     </div>
                     <div style="margin-left: auto; flex:none;margin-right: 1rem;">
-                        <el-button
-                            class="button"
-                            type="text"
-                            :disabled="item.isFinished"
-                            @click="handleRedo(item._id)"
-                        >
+                        <el-button class="button" type="text" @click="handleRedo(item._id)">
                             <el-icon size="25px">
                                 <Finished />
                             </el-icon>

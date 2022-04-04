@@ -9,12 +9,8 @@
   </div>
 </template>
 
-<script>
-import { defineComponent } from "@vue/runtime-core";
+<script setup>
 
-export default defineComponent({
-  name: "content"
-})
 </script>
 
 <style>

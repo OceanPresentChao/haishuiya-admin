@@ -3,6 +3,7 @@ import vue from '@vitejs/plugin-vue'
 import Components from 'unplugin-vue-components/vite'
 import AutoImport from 'unplugin-auto-import/vite'
 import { resolve } from 'path';
+
 import {
   ElementPlusResolver,
 } from 'unplugin-vue-components/resolvers'
@@ -30,7 +31,7 @@ export default defineConfig({
     }),
     createStyleImportPlugin({
       resolves: [ElementPlusResolve()]
-    })
+    }),
   ],
   resolve: {
     alias: {
@@ -44,6 +45,11 @@ export default defineConfig({
         target: 'http://localhost:2777',
         changeOrigin: true,
         rewrite: (path) => path.replace(/^\/agent/, '')
+      },
+      '/weather': {
+        target: 'https://api.seniverse.com',
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/weather/, '')
       }
     }
   }

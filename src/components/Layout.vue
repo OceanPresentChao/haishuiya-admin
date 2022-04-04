@@ -4,28 +4,23 @@
  * @Date: 2022-03-15 10:47:45
 -->
 <template>
-    <div class="body-box">
+    <el-container>
+        <LeftMenu />
         <el-container>
-            <el-aside>
-                <LeftMenu />
-            </el-aside>
-            <el-container>
-                <el-header>
-                    <HeadNav />
-                </el-header>
-                <el-main>
-                    <Content />
-                </el-main>
-            </el-container>
+            <el-header style="display:flex;align-items: center;" height="4rem">
+                <HeadNav></HeadNav>
+            </el-header>
+            <el-main style="padding-top: 0;">
+                <Content />
+            </el-main>
         </el-container>
-    </div>
+    </el-container>
 </template>
 <script setup>
-import LeftMenu from './LeftMenu.vue';
-import Content from './Content.vue';
-import HeadNav from './HeadNav.vue';
-
-
 </script>
-<style lang="css">
+<style scoped>
+html,
+body {
+    overflow: hidden;
+}
 </style>

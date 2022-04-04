@@ -12,7 +12,7 @@ import Layout from './components/Layout.vue'
 
 </script>
 
-<style>
+<style >
 * {
   margin: 0;
   padding: 0;
@@ -32,7 +32,7 @@ a {
   text-decoration: none;
 }
 
-.message-override {
-  z-index: 666;
+body {
+  overflow: hidden;
 }
 </style>

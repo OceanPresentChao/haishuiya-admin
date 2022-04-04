@@ -12,11 +12,14 @@
             default-active="1"
             text-color="#fff"
             :collapse="isCollapse"
+            :class="{ collapse: !isCollapse }"
         >
             <div class="head-top box">
                 <div style="margin-left: auto;" v-if="!isCollapse">
                     <router-link to="/">
-                        <h2 style="color:white">还睡呀</h2>
+                        <h2 style="color:#f6c430">
+                            <Icon icon="mdi:duck" />还睡呀
+                        </h2>
                     </router-link>
                 </div>
                 <div style="margin-left: auto;margin-right: 10px;">
@@ -41,7 +44,7 @@
                 </div>
             </div>
             <router-link to="/home">
-                <el-menu-item index="1">
+                <el-menu-item index="/home">
                     <el-icon>
                         <Star />
                     </el-icon>
@@ -49,7 +52,7 @@
                 </el-menu-item>
             </router-link>
             <router-link to="/activity">
-                <el-menu-item index="2">
+                <el-menu-item index="/activity">
                     <el-icon>
                         <icon-menu />
                     </el-icon>
@@ -57,7 +60,7 @@
                 </el-menu-item>
             </router-link>
             <router-link to="/about">
-                <el-menu-item index="3">
+                <el-menu-item index="/about">
                     <el-icon>
                         <InfoFilled />
                     </el-icon>
@@ -79,14 +82,20 @@ import {
     Expand,
     Menu as IconMenu,
 } from '@element-plus/icons-vue'
-import { ref } from 'vue';
+
+import { Icon } from '@iconify/vue';
 
 const isCollapse = ref(false);
 const toggleCollapse = () => { isCollapse.value = !isCollapse.value; }
 
+
 </script>
 
 <style scoped>
+html,
+body {
+    overflow: hidden;
+}
 .head-top {
     display: flex;
     align-items: center;
@@ -103,5 +112,9 @@ const toggleCollapse = () => { isCollapse.value = !isCollapse.value; }
 .el-menu-vertical-demo {
     min-height: 100vh;
     border-right: 0;
+}
+
+.collapse {
+    padding: 0 1.5rem;
 }
 </style>

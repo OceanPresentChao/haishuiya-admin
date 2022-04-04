@@ -25,7 +25,7 @@ service.interceptors.response.use(
   response => {
     const res = response.data;
     // if the custom code is not 20000, it is judged as an error.
-    if (res.code !== 20000 && res.code !== 200) {
+    if (res.code !== 20000 && res.code !== 200 && res.status == 200) {
       ElMessage({
         message: res.message || 'Error',
         type: 'error',
@@ -46,7 +46,7 @@ service.interceptors.response.use(
     }
   },
   error => {
-    console.log('err' + error) // for debug
+    console.log('Axios err' + error) // for debug
     ElMessage({
       message: error.message,
       type: 'error',
