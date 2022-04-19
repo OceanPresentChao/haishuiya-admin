@@ -20,14 +20,8 @@
             </template>
             <template #default="scope">
                 <el-button size="small" @click="handleEdit(scope.$index, scope.row)">编辑</el-button>
-                <el-popconfirm
-                    title="你确定要删除该活动吗？"
-                    confirmButtonText="是"
-                    cancelButtonText="否"
-                    confirmButtonType="danger"
-                    cancelButtonType="text"
-                    @confirm="handleDelete(scope.$index, scope.row)"
-                >
+                <el-popconfirm title="你确定要删除该活动吗？" confirmButtonText="是" cancelButtonText="否" confirmButtonType="danger"
+                    cancelButtonType="text" @confirm="handleDelete(scope.$index, scope.row)">
                     <template #reference>
                         <el-button size="small" type="danger">删除</el-button>
                     </template>
@@ -42,16 +36,9 @@
                     <el-input v-model="form.actName" />
                 </el-form-item>
                 <el-form-item label="活动时间" prop="time">
-                    <el-date-picker
-                        v-model="form.time"
-                        format="YYYY年MM月DD日hh时mm分"
-                        value-format="YYYY年MM月DD日hh时mm分"
-                        type="datetimerange"
-                        range-separator="至"
-                        start-placeholder="开始时间"
-                        end-placeholder="结束时间"
-                        size="large"
-                    />
+                    <el-date-picker v-model="form.time" format="YYYY年MM月DD日hh时mm分" value-format="YYYY年MM月DD日hh时mm分"
+                        type="datetimerange" range-separator="至" start-placeholder="开始时间" end-placeholder="结束时间"
+                        size="large" />
                 </el-form-item>
                 <el-form-item label="活动类型" prop="type">
                     <el-radio-group v-model="form.type">
@@ -69,13 +56,8 @@
                     </el-radio-group>
                 </el-form-item>
                 <el-form-item label="活动票数" v-if="form.actCategory === '抢票'" prop="ticketNum">
-                    <el-input-number
-                        v-model="form.ticketNum"
-                        :min="0"
-                        :max="50000"
-                        :step="1"
-                        :controls="true"
-                    ></el-input-number>
+                    <el-input-number v-model="form.ticketNum" :min="0" :max="50000" :step="1" :controls="true">
+                    </el-input-number>
                 </el-form-item>
                 <el-form-item label="是否立即开始" prop="isGoing">
                     <el-switch v-model="form.isGoing" />
@@ -91,32 +73,12 @@
         </el-dialog>
     </Teleport>
     <el-row justify="center">
-        <el-pagination
-            v-model:currentPage="currentPage"
-            v-model:page-size="pageSize"
-            :page-sizes="[5, 10, 20]"
-            layout=" prev, pager, next,sizes"
-            :total="total"
-        />
+        <el-pagination v-model:currentPage="currentPage" v-model:page-size="pageSize" :page-sizes="[5, 10, 20]"
+            layout=" prev, pager, next,sizes" :total="total" />
     </el-row>
 </template>
 <script setup lang="ts">
-import Bread from '../../components/Bread.vue';
 import formRules from './FormRules';
-import { ElMessage } from 'element-plus';
-interface Activity {
-    actName: string,
-    time: [string, string],
-    type: string,
-    region: string,
-    actCategory: string,
-    ticketNum: number,
-    isGoing: boolean,
-    desc: string,
-    startTime?: string,
-    endTime?: string,
-    _id?: number
-}
 let currentPage = ref(1);
 let pageSize = ref(5);
 let total = ref(100);
@@ -178,7 +140,6 @@ const handleDelete = async (index: number, row: Activity) => {
     } catch (err) {
         console.log(err);
     }
-
 }
 
 const onSubmit = async () => {
@@ -188,7 +149,7 @@ const onSubmit = async () => {
             let subForm = toRaw(form);
             subForm.startTime = subForm.time[0];
             subForm.endTime = subForm.time[1];
-            let res;
+            let res: any;
             if (isEdit.value) { res = await proxy!.$API.requestPutAct({ ...subForm, _id: selectedRow }); }
             else { res = await proxy!.$API.requestPostAct(subForm); }
             dialogFormVisible.value = false;
@@ -212,7 +173,6 @@ const getActList = async (page: number, limit: number) => {
     }
     //console.log(actList);
 }
-
 
 //监听分页器的变化
 watch([currentPage, pageSize], ([newcurpage, newpagesize]) => {

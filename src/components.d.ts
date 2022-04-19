@@ -8,7 +8,6 @@ declare module 'vue' {
     Analysis: typeof import('./views/Activity/Analysis.vue')['default']
     Bread: typeof import('./components/Bread.vue')['default']
     Content: typeof import('./components/Content.vue')['default']
-    ElAside: typeof import('element-plus/es')['ElAside']
     ElBreadcrumb: typeof import('element-plus/es')['ElBreadcrumb']
     ElBreadcrumbItem: typeof import('element-plus/es')['ElBreadcrumbItem']
     ElButton: typeof import('element-plus/es')['ElButton']
