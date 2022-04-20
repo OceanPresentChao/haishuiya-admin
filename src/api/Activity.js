@@ -15,7 +15,6 @@ export default {
                 limit,
             }
         }).catch(err => console.log(err));
-
     },
     requestPostAct(form) {
         return request({

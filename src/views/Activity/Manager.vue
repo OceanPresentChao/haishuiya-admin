@@ -29,56 +29,14 @@
             </template>
         </el-table-column>
     </el-table>
-    <Teleport to="body">
-        <el-dialog v-model="dialogFormVisible" title="编辑活动">
-            <el-form :model="form" label-width="120px" :rules="formRules" ref="formRef">
-                <el-form-item label="活动名称" v-if="!isEdit" prop="actName">
-                    <el-input v-model="form.actName" />
-                </el-form-item>
-                <el-form-item label="活动时间" prop="time">
-                    <el-date-picker v-model="form.time" format="YYYY年MM月DD日hh时mm分" value-format="YYYY年MM月DD日hh时mm分"
-                        type="datetimerange" range-separator="至" start-placeholder="开始时间" end-placeholder="结束时间"
-                        size="large" />
-                </el-form-item>
-                <el-form-item label="活动类型" prop="type">
-                    <el-radio-group v-model="form.type">
-                        <el-radio label="线上" name="type" />
-                        <el-radio label="线下" name="type" />
-                    </el-radio-group>
-                </el-form-item>
-                <el-form-item label="活动地点" v-if="form.type === '线下'" prop="region">
-                    <el-input v-model="form.region" placeholder="请输入活动地点"></el-input>
-                </el-form-item>
-                <el-form-item label="活动类型" prop="actCategory">
-                    <el-radio-group v-model="form.actCategory">
-                        <el-radio label="打卡" name="actCategory" />
-                        <el-radio label="抢票" name="actCategory" />
-                    </el-radio-group>
-                </el-form-item>
-                <el-form-item label="活动票数" v-if="form.actCategory === '抢票'" prop="ticketNum">
-                    <el-input-number v-model="form.ticketNum" :min="0" :max="50000" :step="1" :controls="true">
-                    </el-input-number>
-                </el-form-item>
-                <el-form-item label="是否立即开始" prop="isGoing">
-                    <el-switch v-model="form.isGoing" />
-                </el-form-item>
-                <el-form-item label="活动说明" prop="desc">
-                    <el-input v-model="form.desc" type="textarea" placeholder="请输入活动说明" />
-                </el-form-item>
-                <el-form-item>
-                    <el-button type="primary" @click="onSubmit">提交</el-button>
-                    <el-button @click="dialogFormVisible = false">取消</el-button>
-                </el-form-item>
-            </el-form>
-        </el-dialog>
-    </Teleport>
+    <ActForm v-model="form" @finish="handleSubmit"></ActForm>
     <el-row justify="center">
         <el-pagination v-model:currentPage="currentPage" v-model:page-size="pageSize" :page-sizes="[5, 10, 20]"
             layout=" prev, pager, next,sizes" :total="total" />
     </el-row>
 </template>
 <script setup lang="ts">
-import formRules from './FormRules';
+import ActForm from './ActForm.vue';
 let currentPage = ref(1);
 let pageSize = ref(5);
 let total = ref(100);
@@ -92,7 +50,7 @@ let filterActList = computed(() =>
     )
 );
 let dialogFormVisible = ref(false);
-let form: Activity = reactive({
+let defaultForm: Activity = {
     actName: '',
     time: ['', ''],
     type: '',
@@ -101,34 +59,28 @@ let form: Activity = reactive({
     ticketNum: 0,
     isGoing: true,
     desc: '',
-});
+};
+let form = ref<Activity>(Object.assign({}, defaultForm));
 let selectedRow = 0;
 const formRef = ref<HTMLFormElement>();
 const handleCreate = () => {
     isEdit.value = false;
     dialogFormVisible.value = true;
-    form.actName = '';
-    form.time = ['', ''];
-    form.type = '';
-    form.region = '';
-    form.actCategory = '';
-    form.ticketNum = 0;
-    form.isGoing = true;
-    form.desc = '';
+    form.value = defaultForm;
 }
 const handleEdit = (index: number, row: Activity) => {
     isEdit.value = true;
     //index为索引，row为提供该行属性的代理对象
     console.log(index, row);
     dialogFormVisible.value = true;
-    form.actName = row.actName;
-    form.time = [row.startTime!, row.endTime!];
-    form.type = row.type;
-    form.region = row.region;
-    form.actCategory = row.actCategory;
-    form.ticketNum = row.ticketNum;
-    form.isGoing = row.isGoing;
-    form.desc = row.desc;
+    form.value.actName = row.actName;
+    form.value.time = [row.startTime!, row.endTime!];
+    form.value.type = row.type;
+    form.value.region = row.region;
+    form.value.actCategory = row.actCategory;
+    form.value.ticketNum = row.ticketNum;
+    form.value.isGoing = row.isGoing;
+    form.value.desc = row.desc;
     selectedRow = row._id!;
     //console.log(selectedRow);
 }
@@ -142,13 +94,13 @@ const handleDelete = async (index: number, row: Activity) => {
     }
 }
 
-const onSubmit = async () => {
+const handleSubmit = async () => {
     if (!formRef.value) return
     await formRef.value.validate(async (valid: boolean, fields: any) => {
         if (valid) {
             let subForm = toRaw(form);
-            subForm.startTime = subForm.time[0];
-            subForm.endTime = subForm.time[1];
+            subForm.value.startTime = subForm.value.time[0];
+            subForm.value.endTime = subForm.value.time[1];
             let res: any;
             if (isEdit.value) { res = await proxy!.$API.requestPutAct({ ...subForm, _id: selectedRow }); }
             else { res = await proxy!.$API.requestPostAct(subForm); }
