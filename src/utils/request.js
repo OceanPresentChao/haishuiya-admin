@@ -25,7 +25,27 @@ service.interceptors.response.use(
   response => {
     const res = response.data;
     // if the custom code is not 20000, it is judged as an error.
-    if (res.code !== 20000 && res.code !== 200 && res.status == 200) {
+    if (response.status == 200) {
+      if (res.code !== 20000 && res.code !== 200) {
+        ElMessage({
+          message: res.message || 'Error',
+          type: 'error',
+          duration: 5 * 1000,
+          center: true,
+        })
+        return Promise.reject(new Error(res.message || 'Error'))
+      } else {
+        if (res.message) {
+          ElMessage({
+            message: res.message,
+            type: 'success',
+            duration: 5 * 1000,
+            center: true,
+          })
+        }
+        return res
+      }
+    } else {
       ElMessage({
         message: res.message || 'Error',
         type: 'error',
@@ -33,16 +53,6 @@ service.interceptors.response.use(
         center: true,
       })
       return Promise.reject(new Error(res.message || 'Error'))
-    } else {
-      if (res.message) {
-        ElMessage({
-          message: res.message || 'Error',
-          type: 'success',
-          duration: 5 * 1000,
-          center: true,
-        })
-      }
-      return res
     }
   },
   error => {

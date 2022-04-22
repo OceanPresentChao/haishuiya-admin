@@ -1,31 +1,51 @@
-<!--
- * @Author: OceanPresent
- * @E-mail: oceanpresent@163.com
- * @Date: 2022-03-15 15:18:16
--->
 <template>
-    <el-breadcrumb :separator-icon="ArrowRight">
-        <el-breadcrumb-item v-for="(item, key) in breadList" :key="item.path">
-            <router-link v-if="item.path" :to="item.path">{{ item.meta.title }}</router-link>
-            <span v-else>{{ item.title }}</span>
-        </el-breadcrumb-item>
+    <el-breadcrumb class="app-breadcrumb" separator="/">
+        <transition-group name="breadcrumb">
+            <el-breadcrumb-item v-for="(item, index)  in levelList" :key="item.path" v-show="item.meta.title">
+                <span v-if="item.redirect === 'noredirect' || index == levelList.length - 1" class="no-redirect">{{
+                    item.meta.title
+                }}</span>
+                <router-link v-else :to="item.redirect || item.path">{{ item.meta.title }}</router-link>
+            </el-breadcrumb-item>
+        </transition-group>
     </el-breadcrumb>
 </template>
 
-<script setup>
-import { ArrowRight } from '@element-plus/icons-vue'
-const route = useRoute();
-let breadList = ref([]);
+<script setup lang="ts">
+import type { RouteLocationMatched } from 'vue-router';
+
+const router = useRouter()
+const route = useRoute()
+let levelList = ref<any>(null)
 watch(route, () => {
-    breadList.value.splice(0,);
-    route.matched.forEach((item) => { breadList.value.push(item) });
-    if (route.matched[0] && route.matched[0].path !== '/home') {
-        breadList.value.unshift({ path: '/home', meta: { title: '首页' } })
-    }
+    getBreadcrumb()
 }, { immediate: true })
+getBreadcrumb()
+function getBreadcrumb() {
+    let matched: RouteLocationMatched[] = route.matched.filter(item => item.meta.title)
+    const first = matched[0]
+    let breadmatched: any[] = matched;
+    if (first && first.meta.title !== '首页') {
+        breadmatched.unshift({ path: '/home', meta: { title: '首页' } })
+    }
+    levelList.value = breadmatched
+}
+
+
 </script>
-<style lang="css" scoped>
-* {
-    font-size: 1.2rem;
+
+<style scoped>
+.app-breadcrumb,
+.el-breadcrumb {
+    display: inline-block;
+    font-size: 14px;
+    line-height: 50px;
+    margin-left: 10px;
+}
+
+.app-breadcrumb .no-redirect,
+.el-breadcrumb .no-redirect {
+    color: #97a8be;
+    cursor: text;
 }
 </style>

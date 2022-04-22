@@ -7,20 +7,22 @@ import { reactive } from 'vue'
 export default reactive({
     actName: {
         required: true,
-        message: '请输入活动名称'
+        message: '请输入活动名称',
+        trigger: 'blur',
     },
     time: {
         required: true,
         message: '请选择活动时间',
+        trigger: 'blur'
     },
     type: {
         required: true,
         message: '请选择活动形式',
-        trigger: 'change',
+        trigger: 'change'
     },
     actCategory: {
         required: true,
         message: '请选择活动类型',
-        trigger: 'change',
+        trigger: 'change'
     },
 })

@@ -8,7 +8,7 @@ import request from '../utils/request';
 export default {
     requestActList(page, limit) {
         return request({
-            url: 'agent/api/activity',
+            url: 'agent/api/activitylist',
             method: 'GET',
             params: {
                 page,

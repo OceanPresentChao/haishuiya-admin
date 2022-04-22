@@ -4,43 +4,16 @@
  * @Date: 2022-03-15 11:29:15
 -->
 <template>
-    <div>
-        <el-menu
-            active-text-color="#ffd04b"
-            background-color="#545c64"
-            class="el-menu-vertical-demo"
-            default-active="1"
-            text-color="#fff"
-            :collapse="isCollapse"
-            :class="{ collapse: !isCollapse }"
-        >
+    <div style="margin-right: 180px;">
+        <el-menu active-text-color="#ffd04b" background-color="#545c64" class="el-menu-vertical-demo" default-active="1"
+            text-color="#fff">
             <div class="head-top box">
-                <div style="margin-left: auto;" v-if="!isCollapse">
+                <div>
                     <router-link to="/">
                         <h2 style="color:#f6c430">
                             <Icon icon="mdi:duck" />还睡呀
                         </h2>
                     </router-link>
-                </div>
-                <div style="margin-left: auto;margin-right: 10px;">
-                    <span style="cursor: pointer;" @click="toggleCollapse">
-                        <el-icon
-                            :size="30"
-                            color="white"
-                            style="vertical-align: middle;"
-                            v-if="!isCollapse"
-                        >
-                            <fold />
-                        </el-icon>
-                        <el-icon
-                            :size="30"
-                            color="white"
-                            style="vertical-align: middle;"
-                            v-if="isCollapse"
-                        >
-                            <expand />
-                        </el-icon>
-                    </span>
                 </div>
             </div>
             <router-link to="/home">
@@ -77,32 +50,28 @@ import {
     Notebook,
     InfoFilled,
     Star,
-    Fold,
+
     Goods,
-    Expand,
+
     Menu as IconMenu,
 } from '@element-plus/icons-vue'
 
 import { Icon } from '@iconify/vue';
 
-const isCollapse = ref(false);
-const toggleCollapse = () => { isCollapse.value = !isCollapse.value; }
 
 
 </script>
 
 <style scoped>
-html,
-body {
-    overflow: hidden;
-}
 .head-top {
     display: flex;
     align-items: center;
     justify-content: center;
     padding: 16px 0;
     margin: 0;
+    text-align: center;
 }
+
 .box {
     background: #545c64;
     box-shadow: 1px 0 4px rgb(0 21 41 / 8%);
@@ -112,6 +81,11 @@ body {
 .el-menu-vertical-demo {
     min-height: 100vh;
     border-right: 0;
+    width: 180px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 227;
 }
 
 .collapse {

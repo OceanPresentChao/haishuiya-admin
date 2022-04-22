@@ -4,10 +4,12 @@
 
 declare module 'vue' {
   export interface GlobalComponents {
-    About: typeof import('./views/About.vue')['default']
-    Analysis: typeof import('./views/Activity/Analysis.vue')['default']
+    About: typeof import('./views/about/About.vue')['default']
+    ActAnalysis: typeof import('./views/activity/ActAnalysis.vue')['default']
+    ActForm: typeof import('./views/activity/ActForm.vue')['default']
+    ActManager: typeof import('./views/activity/ActManager.vue')['default']
     Bread: typeof import('./components/Bread.vue')['default']
-    Content: typeof import('./components/Content.vue')['default']
+    Content: typeof import('./views/layout/Content.vue')['default']
     ElBreadcrumb: typeof import('element-plus/es')['ElBreadcrumb']
     ElBreadcrumbItem: typeof import('element-plus/es')['ElBreadcrumbItem']
     ElButton: typeof import('element-plus/es')['ElButton']
@@ -35,14 +37,12 @@ declare module 'vue' {
     ElSwitch: typeof import('element-plus/es')['ElSwitch']
     ElTable: typeof import('element-plus/es')['ElTable']
     ElTableColumn: typeof import('element-plus/es')['ElTableColumn']
-    HeadNav: typeof import('./components/HeadNav.vue')['default']
-    HelloWorld: typeof import('./components/HelloWorld.vue')['default']
-    Home: typeof import('./views/Home.vue')['default']
-    Layout: typeof import('./components/Layout.vue')['default']
-    LeftMenu: typeof import('./components/LeftMenu.vue')['default']
-    Manager: typeof import('./views/Activity/Manager.vue')['default']
-    TodoList: typeof import('./views/TodoList.vue')['default']
-    Weather: typeof import('./views/Weather.vue')['default']
+    HeadNav: typeof import('./views/layout/HeadNav.vue')['default']
+    Home: typeof import('./views/home/Home.vue')['default']
+    Layout: typeof import('./views/layout/Layout.vue')['default']
+    LeftMenu: typeof import('./views/layout/LeftMenu.vue')['default']
+    TodoList: typeof import('./views/todolist/TodoList.vue')['default']
+    Weather: typeof import('./views/weather/Weather.vue')['default']
   }
 }
 

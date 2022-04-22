@@ -1,5 +1,5 @@
 import App from './App.vue'
-import router from './route';
+import router from './router';
 import API from './api';
 
 const app = createApp(App);

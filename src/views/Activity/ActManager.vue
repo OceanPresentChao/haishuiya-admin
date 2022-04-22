@@ -29,14 +29,15 @@
             </template>
         </el-table-column>
     </el-table>
-    <ActForm v-model="form" @finish="handleSubmit"></ActForm>
+    <ActForm v-model="form" @finish="handleSubmit" @cancel="triggerFromVis" :is-edit="isEdit" v-if="dialogFormVisible">
+    </ActForm>
     <el-row justify="center">
         <el-pagination v-model:currentPage="currentPage" v-model:page-size="pageSize" :page-sizes="[5, 10, 20]"
             layout=" prev, pager, next,sizes" :total="total" />
     </el-row>
 </template>
 <script setup lang="ts">
-import ActForm from './ActForm.vue';
+
 let currentPage = ref(1);
 let pageSize = ref(5);
 let total = ref(100);
@@ -50,6 +51,7 @@ let filterActList = computed(() =>
     )
 );
 let dialogFormVisible = ref(false);
+const triggerFromVis = () => { dialogFormVisible.value = !dialogFormVisible.value; }
 let defaultForm: Activity = {
     actName: '',
     time: ['', ''],
@@ -60,18 +62,20 @@ let defaultForm: Activity = {
     isGoing: true,
     desc: '',
 };
-let form = ref<Activity>(Object.assign({}, defaultForm));
+let form = ref<Activity>(Object.assign({}, unref(defaultForm)));
+
 let selectedRow = 0;
-const formRef = ref<HTMLFormElement>();
+
 const handleCreate = () => {
     isEdit.value = false;
     dialogFormVisible.value = true;
+    console.log(dialogFormVisible.value);
     form.value = defaultForm;
 }
 const handleEdit = (index: number, row: Activity) => {
     isEdit.value = true;
     //index为索引，row为提供该行属性的代理对象
-    console.log(index, row);
+    console.log("Edit:", index, row);
     dialogFormVisible.value = true;
     form.value.actName = row.actName;
     form.value.time = [row.startTime!, row.endTime!];
@@ -95,24 +99,15 @@ const handleDelete = async (index: number, row: Activity) => {
 }
 
 const handleSubmit = async () => {
-    if (!formRef.value) return
-    await formRef.value.validate(async (valid: boolean, fields: any) => {
-        if (valid) {
-            let subForm = toRaw(form);
-            subForm.value.startTime = subForm.value.time[0];
-            subForm.value.endTime = subForm.value.time[1];
-            let res: any;
-            if (isEdit.value) { res = await proxy!.$API.requestPutAct({ ...subForm, _id: selectedRow }); }
-            else { res = await proxy!.$API.requestPostAct(subForm); }
-            dialogFormVisible.value = false;
-            getActList(currentPage.value, pageSize.value);
-            console.log('submit!')
-        } else {
-            console.log('error submit!', fields)
-        }
-    })
+    let subForm = unref(form);
+    subForm.startTime = subForm.time[0];
+    subForm.endTime = subForm.time[1];
+    let res: any;
+    if (isEdit.value) { res = await proxy!.$API.requestPutAct({ ...subForm, _id: selectedRow }); }
+    else { res = await proxy!.$API.requestPostAct(subForm); }
+    dialogFormVisible.value = false;
+    getActList(currentPage.value, pageSize.value);
 }
-
 
 const getActList = async (page: number, limit: number) => {
     try {

@@ -4,14 +4,14 @@
  * @Date: 2022-03-15 10:47:45
 -->
 <template>
-    <el-container>
-        <LeftMenu />
+    <el-container style="width: 100%;height:100%;">
+        <LeftMenu></LeftMenu>
         <el-container>
             <el-header style="display:flex;align-items: center;" height="4rem">
                 <HeadNav></HeadNav>
             </el-header>
             <el-main style="padding-top: 0;">
-                <Content />
+                <Content></Content>
             </el-main>
         </el-container>
     </el-container>
@@ -19,8 +19,4 @@
 <script setup>
 </script>
 <style scoped>
-html,
-body {
-    overflow: hidden;
-}
 </style>
