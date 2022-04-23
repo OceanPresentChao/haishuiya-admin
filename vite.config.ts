@@ -46,10 +46,10 @@ export default defineConfig({
         changeOrigin: true,
         rewrite: (path) => path.replace(/^\/agent/, '')
       },
-      '/weather': {
-        target: 'https://api.seniverse.com',
+      '/slogan': {
+        target: 'http://v1.hitokoto.cn',
         changeOrigin: true,
-        rewrite: (path) => path.replace(/^\/weather/, '')
+        rewrite: (path) => path.replace(/^\/slogan/, '')
       }
     }
   }

@@ -39,7 +39,7 @@
                 </el-card>
             </transition-group>
         </el-main>
-        <div v-if="ac_todoList.length">
+        <el-main v-if="ac_todoList.length">
             <div style="text-align: left;padding-bottom: 8px;">
                 <el-icon size="25px">
                     <ArrowDown />
@@ -51,7 +51,7 @@
                     :body-style="{ padding: '8px' }">
                     <div style="display: flex;">
                         <div>
-                            <el-button type="text" size="default" @click="handleDelAC(item._id)">
+                            <el-button type="text" size="default" @click="handleDelAC(item._id)" style="cursor:pointer">
                                 <el-icon size="20px" color="red">
                                     <Delete />
                                 </el-icon>
@@ -71,7 +71,7 @@
                     </div>
                 </el-card>
             </transition-group>
-        </div>
+        </el-main>
     </el-container>
 </template>
 <script setup lang="ts">

@@ -12,6 +12,7 @@
     "@vueuse/core": "^8.2.3",
     "axios": "^0.26.1",
     "element-plus": "^2.1.8",
+    "qweather-icons": "^1.1.1",
     "vue": "^3.2.31",
     "vue-router": "^4.0.14"
   },

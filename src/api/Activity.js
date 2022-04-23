@@ -36,5 +36,11 @@ export default {
             method: 'DELETE',
             params: params,
         }).catch(err => console.log(err));
+    },
+    requestActStatus() {
+        return request({
+            url: 'agent/api/actstatus',
+            method: "GET"
+        }).catch(err => console.log(err))
     }
 }

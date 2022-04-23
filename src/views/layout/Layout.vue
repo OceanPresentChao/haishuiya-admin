@@ -7,7 +7,7 @@
     <el-container style="width: 100%;height:100%;">
         <LeftMenu></LeftMenu>
         <el-container>
-            <el-header style="display:flex;align-items: center;" height="4rem">
+            <el-header>
                 <HeadNav></HeadNav>
             </el-header>
             <el-main style="padding-top: 0;">

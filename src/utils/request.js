@@ -26,9 +26,9 @@ service.interceptors.response.use(
     const res = response.data;
     // if the custom code is not 20000, it is judged as an error.
     if (response.status == 200) {
-      if (res.code !== 20000 && res.code !== 200) {
+      if (res.code !== 20000 && res.code !== 200 && response.headers.haishuiya) {
         ElMessage({
-          message: res.message || 'Error',
+          message: res.message || 'Error:Code非200',
           type: 'error',
           duration: 5 * 1000,
           center: true,
@@ -47,7 +47,7 @@ service.interceptors.response.use(
       }
     } else {
       ElMessage({
-        message: res.message || 'Error',
+        message: res.message || 'Error:Status非200',
         type: 'error',
         duration: 5 * 1000,
         center: true,

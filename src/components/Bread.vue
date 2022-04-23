@@ -3,7 +3,7 @@
         <transition-group name="breadcrumb">
             <el-breadcrumb-item v-for="(item, index)  in levelList" :key="item.path" v-show="item.meta.title">
                 <span v-if="item.redirect === 'noredirect' || index == levelList.length - 1" class="no-redirect">{{
-                    item.meta.title
+                        item.meta.title
                 }}</span>
                 <router-link v-else :to="item.redirect || item.path">{{ item.meta.title }}</router-link>
             </el-breadcrumb-item>
@@ -38,9 +38,9 @@ function getBreadcrumb() {
 .app-breadcrumb,
 .el-breadcrumb {
     display: inline-block;
-    font-size: 14px;
-    line-height: 50px;
-    margin-left: 10px;
+    font-size: 1.25rem;
+    line-height: 1.25rem;
+    margin-left: 1rem;
 }
 
 .app-breadcrumb .no-redirect,

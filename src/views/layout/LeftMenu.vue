@@ -47,12 +47,8 @@
 
 <script setup>
 import {
-    Notebook,
     InfoFilled,
     Star,
-
-    Goods,
-
     Menu as IconMenu,
 } from '@element-plus/icons-vue'
 
