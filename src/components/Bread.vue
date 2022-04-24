@@ -38,10 +38,13 @@ function getBreadcrumb() {
 .app-breadcrumb,
 .el-breadcrumb {
     display: inline-block;
+    height: 1.25rem;
     font-size: 1.25rem;
     line-height: 1.25rem;
+    margin: auto 0;
     margin-left: 1rem;
 }
+
 
 .app-breadcrumb .no-redirect,
 .el-breadcrumb .no-redirect {

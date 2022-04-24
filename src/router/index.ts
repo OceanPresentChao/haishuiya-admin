@@ -8,6 +8,7 @@ import Layout from '@/views/layout/Layout.vue';
 import { createWebHashHistory, createRouter } from 'vue-router';
 
 const routes = [
+    { path: '/404', component: () => import('@/views/404.vue'), hidden: true },
     {
         path: '/',
         redirect: '/home',
@@ -49,8 +50,7 @@ const routes = [
             },
         ]
     },
-
-
+    { path: '/:pathMatch(.*)*', redirect: '/404', hidden: true }
 ]
 
 const router = createRouter({

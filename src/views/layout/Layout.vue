@@ -16,7 +16,14 @@
         </el-container>
     </el-container>
 </template>
-<script setup>
-</script>
+
 <style scoped>
+.el-header {
+    display: flex;
+    align-items: center;
+}
+
+.el-main {
+    overflow-x: hidden;
+}
 </style>

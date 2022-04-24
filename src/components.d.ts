@@ -4,6 +4,7 @@
 
 declare module 'vue' {
   export interface GlobalComponents {
+    404: typeof import('./views/404.vue')['default']
     About: typeof import('./views/about/About.vue')['default']
     ActAnalysis: typeof import('./views/activity/ActAnalysis.vue')['default']
     ActForm: typeof import('./views/activity/ActForm.vue')['default']
