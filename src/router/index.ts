@@ -8,6 +8,7 @@ import Layout from '@/views/layout/Layout.vue';
 import { createWebHashHistory, createRouter } from 'vue-router';
 
 const routes = [
+    { path: '/login', component: () => import('@/views/login/Login.vue'), hidden: true },
     { path: '/404', component: () => import('@/views/404.vue'), hidden: true },
     {
         path: '/',

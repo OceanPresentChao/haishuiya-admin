@@ -1,7 +1,6 @@
 import App from './App.vue'
 import router from './router';
 import API from './api';
-import 'qweather-icons/font/qweather-icons.css';
 const app = createApp(App);
 declare module '@vue/runtime-core' {
     interface ComponentCustomProperties {
