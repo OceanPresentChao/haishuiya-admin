@@ -3,30 +3,39 @@
         <el-card class="login-form-layout">
             <el-form autoComplete="on" :model="loginForm" :rules="loginRules" ref="loginRef" label-position="left">
                 <div style="text-align: center">
-                    <svg-icon icon-class="login-mall" style="width: 56px;height: 56px;color: #409EFF"></svg-icon>
+                    <el-icon :size="30" color="#f9d27d">
+                        <food />
+                    </el-icon>
                 </div>
                 <h2 class="login-title color-main">HaiShuiYa-Admin</h2>
                 <el-form-item prop="username">
                     <el-input name="username" type="text" v-model="loginForm.username" autoComplete="on"
                         placeholder="请输入用户名">
-                        <span slot="prefix">
-                            <svg-icon icon-class="user" class="color-main"></svg-icon>
-                        </span>
+                        <template #prefix>
+                            <el-icon :size="20" style="margin:auto;">
+                                <avatar />
+                            </el-icon>
+                        </template>
                     </el-input>
                 </el-form-item>
                 <el-form-item prop="password">
                     <el-input name="password" :type="pwdType" @keyup.enter.native="handleLogin"
                         v-model="loginForm.password" autoComplete="on" placeholder="请输入密码">
-                        <span slot="prefix">
-                            <svg-icon icon-class="password" class="color-main"></svg-icon>
-                        </span>
-                        <span slot="suffix" @click="showPwd">
-                            <svg-icon icon-class="eye" class="color-main"></svg-icon>
-                        </span>
+                        <template #prefix>
+                            <el-icon :size="20" style="margin:auto;">
+                                <postcard />
+                            </el-icon>
+                        </template>
+                        <template #suffix>
+                            <el-icon :size="20" style="margin:auto;" @click="showPwd">
+                                <View />
+                            </el-icon>
+                        </template>
                     </el-input>
                 </el-form-item>
-                <el-form-item style="margin-bottom: 60px;text-align: center">
-                    <el-button style="width: 45%" type="primary" :loading="loading" @click.native.prevent="handleLogin">
+                <el-form-item style="margin-bottom: 3rem;text-align: center">
+                    <el-button style="width: 90%;margin:0 auto" type="primary" :loading="loading"
+                        @click.native.prevent="handleLogin">
                         登录
                     </el-button>
                 </el-form-item>
@@ -37,22 +46,23 @@
 </template>
 
 <script setup lang="ts">
-import { isvalidUsername } from '@/utils/validate';
+import { isValidUsername, isValidPassword } from '@/utils/validate';
 import { setSupport, getSupport, setCookie, getCookie } from '@/utils/support';
 import login_center_bg from '@/assets/images/login_center_bg.png'
 import type { FormRules } from 'element-plus';
 import type { RuleItem } from 'async-validator';
+import { Avatar, Postcard, View, Food } from '@element-plus/icons-vue';
 
 const validateUsername: RuleItem["validator"] = (rule, value, callback) => {
-    if (!isvalidUsername(value)) {
+    if (!isValidUsername(value)) {
         callback(new Error('请输入正确的用户名'))
     } else {
         callback()
     }
 };
 const validatePass: RuleItem["validator"] = (rule, value, callback) => {
-    if (value.length < 3) {
-        callback(new Error('密码不能小于3位'))
+    if (!isValidPassword(value)) {
+        callback(new Error('密码以字母开头，长度在6~18之间，只含字母、数字和下划线'))
     } else {
         callback()
     }
@@ -123,6 +133,8 @@ function handleLogin() {
 
 .login-title {
     text-align: center;
+    line-height: 2rem;
+    padding: 1rem;
 }
 
 .login-center-layout {
