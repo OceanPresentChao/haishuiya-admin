@@ -52,7 +52,7 @@ import login_center_bg from '@/assets/images/login_center_bg.png'
 import type { FormRules } from 'element-plus';
 import type { RuleItem } from 'async-validator';
 import { Avatar, Postcard, View, Food } from '@element-plus/icons-vue';
-
+import { useAdminStore } from '@/stores/admin';
 const validateUsername: RuleItem["validator"] = (rule, value, callback) => {
     if (!isValidUsername(value)) {
         callback(new Error('请输入正确的用户名'))
@@ -67,7 +67,6 @@ const validatePass: RuleItem["validator"] = (rule, value, callback) => {
         callback()
     }
 };
-const router = useRouter()
 const loginRef = ref<HTMLFormElement>()
 const loginForm = ref({
     username: '',
@@ -79,7 +78,7 @@ const loginRules = ref<FormRules>({
 })
 const loading = ref(false)
 const pwdType = ref('password')
-
+const adminStore = useAdminStore()
 
 onMounted(() => {
     loginForm.value.username = getCookie("username");
@@ -111,7 +110,7 @@ function handleLogin() {
             // }).catch(() => {
             //     loading.value = false
             // })
-            console.log("验证合格！");
+            adminStore.login(unref(loginForm))
         } else {
             console.log('参数验证不合法！');
             return false

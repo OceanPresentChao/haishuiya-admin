@@ -11,3 +11,8 @@ declare interface Activity {
     endTime?: string,
     _id?: number
 }
+
+declare interface AdminInfo {
+    username: string,
+    password: string
+}

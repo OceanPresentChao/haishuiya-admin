@@ -118,7 +118,6 @@ const getActList = async (page: number, limit: number) => {
     } catch (err) {
         console.log(err);
     }
-    //console.log(actList);
 }
 
 //监听分页器的变化
