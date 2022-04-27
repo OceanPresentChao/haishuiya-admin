@@ -4,14 +4,19 @@ import { getToken, setToken, removeToken } from '@/utils/auth';
 export const useAdminStore = defineStore('admin', {
     state: () => {
         return {
-            token: "getToken()",
+            token: getToken(),
             username: ''
         }
     },
     actions: {
-        async login(info: AdminInfo) {
-            let result = await adminapi.requestLogin(info)
-            console.log("@@@", result);
+        login(info: AdminInfo) {
+            return new Promise(async (resolve, reject) => {
+                const result = await adminapi.requestLogin(info)
+                console.log("@@@", result);
+                const data = result.data
+                setToken(data.token)
+                resolve(true)
+            });
         }
     }
 })

@@ -40,12 +40,10 @@ export default defineConfig({
   },
   server: {
     open: true,
-    host: '0.0.0.0',
     proxy: {
       '/agent': {
-        target: 'http://127.0.0.1:2777',
+        target: 'http://localhost:2777',
         changeOrigin: true,
-        secure: false,
         rewrite: (path) => path.replace(/^\/agent/, '')
       },
       '/slogan': {

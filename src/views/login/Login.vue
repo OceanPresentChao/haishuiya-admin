@@ -79,12 +79,12 @@ const loginRules = ref<FormRules>({
 const loading = ref(false)
 const pwdType = ref('password')
 const adminStore = useAdminStore()
-
+const router = useRouter()
 onMounted(() => {
     loginForm.value.username = getCookie("username");
     loginForm.value.password = getCookie("password");
     if (loginForm.value.username === undefined || loginForm.value.username == null || loginForm.value.username === '') {
-        loginForm.value.username = 'admin';
+        loginForm.value.username = 'haishuiya';
     }
     if (loginForm.value.password === undefined || loginForm.value.password == null) {
         loginForm.value.password = '';
@@ -101,16 +101,15 @@ function showPwd() {
 function handleLogin() {
     loginRef.value?.validate((valid: any) => {
         if (valid) {
-            // loading.value = true;
-            // this.$store.dispatch('Login', this.loginForm).then(() => {
-            //     loading.value = false
-            //     setCookie("username", loginForm.value.username, 15);
-            //     setCookie("password", loginForm.value.password, 15);
-            //     router.push({ path: '/' })
-            // }).catch(() => {
-            //     loading.value = false
-            // })
-            adminStore.login(unref(loginForm))
+            loading.value = true;
+            adminStore.login(unref(loginForm)).then(val => {
+                loading.value = false
+                setCookie('username', loginForm.value.username, 15)
+                setCookie('password', loginForm.value.password, 15)
+                router.push({ path: '/' })
+            }).catch(err => {
+                loading.value = false
+            })
         } else {
             console.log('参数验证不合法！');
             return false

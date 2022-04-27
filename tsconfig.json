@@ -18,7 +18,10 @@
     "noUnusedLocals": false,
     "noUnusedParameters": false,
     "target": "es6",
-    "declaration": true
+    "declaration": true,
+    "types": [
+      "@types/nprogress"
+    ]
   },
   "references": [
     {

@@ -10,7 +10,7 @@ export default {
         return request({
             url: 'agent/api/login',
             method: 'POST',
-            params: {
+            data: {
                 userInfo: userInfo
             }
         }).catch(err => console.log(err));

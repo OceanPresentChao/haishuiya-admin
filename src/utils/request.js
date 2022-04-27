@@ -5,25 +5,32 @@
  */
 import axios from 'axios';
 import { ElMessage } from 'element-plus';
+import { getToken } from './auth';
+// import { useAdminStore } from '@/stores/admin';
+// const adminStore = useAdminStore()
 // create an axios instance
 const service = axios.create({
   // withCredentials: true, // send cookies when cross-domain requests
   timeout: 5000 // request timeout
 })
+
+// request拦截器
+service.interceptors.request.use(config => {
+  if (getToken) {
+    config.headers['Token'] = getToken() // 让每个请求携带自定义token 请根据实际情况自行修改
+  }
+  return config
+}, error => {
+  // Do something with request error
+  console.log(error) // for debug
+  Promise.reject(error)
+})
+
 // response interceptor
 service.interceptors.response.use(
-  /**
-   * If you want to get http information such as headers or status
-   * Please return  response => response
-  */
-
-  /**
-   * Determine the request status by custom code
-   * Here is just an example
-   * You can also judge the status by HTTP Status Code
-   */
   response => {
     const res = response.data;
+    console.log("Axios OK", res);
     // if the custom code is not 20000, it is judged as an error.
     if (response.status == 200) {
       if (res.code !== 20000 && res.code !== 200 && response.headers.haishuiya) {
