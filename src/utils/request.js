@@ -16,8 +16,8 @@ const service = axios.create({
 
 // request拦截器
 service.interceptors.request.use(config => {
-  if (getToken) {
-    config.headers['Token'] = getToken() // 让每个请求携带自定义token 请根据实际情况自行修改
+  if (getToken()) {
+    config.headers['OPToken'] = getToken() // 让每个请求携带自定义token 请根据实际情况自行修改
   }
   return config
 }, error => {
@@ -30,7 +30,7 @@ service.interceptors.request.use(config => {
 service.interceptors.response.use(
   response => {
     const res = response.data;
-    console.log("Axios OK", res);
+    console.log(response.headers);
     // if the custom code is not 20000, it is judged as an error.
     if (response.status == 200) {
       if (res.code !== 20000 && res.code !== 200 && response.headers.haishuiya) {
@@ -53,6 +53,10 @@ service.interceptors.response.use(
         return res
       }
     } else {
+      if (response.status === 501) {
+        const router = useRouter()
+        router.push({ path: '/login' })
+      }
       ElMessage({
         message: res.message || 'Error:Status非200',
         type: 'error',

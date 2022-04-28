@@ -11,11 +11,17 @@ export const useAdminStore = defineStore('admin', {
     actions: {
         login(info: AdminInfo) {
             return new Promise(async (resolve, reject) => {
-                const result = await adminapi.requestLogin(info)
-                console.log("@@@", result);
-                const data = result.data
-                setToken(data.token)
-                resolve(true)
+                try {
+                    const result = await adminapi.requestLogin(info)
+                    if (result) {
+                        const data = result.data
+                        setToken(data.token)
+                    }
+                    resolve(true)
+                } catch (error) {
+                    reject(error)
+                }
+
             });
         }
     }

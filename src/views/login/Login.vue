@@ -107,7 +107,7 @@ function handleLogin() {
                 setCookie('username', loginForm.value.username, 15)
                 setCookie('password', loginForm.value.password, 15)
                 router.push({ path: '/' })
-            }).catch(err => {
+            }).finally(() => {
                 loading.value = false
             })
         } else {
