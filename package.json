@@ -1,35 +1,56 @@
 {
-  "name": "starter-unplugin",
-  "version": "0.1.0",
+  "name": "haishuiya-admin",
+  "version": "0.0.0",
+  "license": "MIT",
+  "author": "OceanPresent <oceanpresent@163.com>",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/OceanPresentChao/haishuiya-admin.git"
+  },
+  "keywords": [
+    "oceanpresent"
+  ],
+  "homepage": "https://github.com/OceanPresentChao/haishuiya-admin",
   "scripts": {
-    "dev": "vite",
+    "dev": "vite --host",
     "build": "vue-tsc --noEmit && vite build",
     "preview": "vite preview --port 5050",
     "typecheck": "vue-tsc --noEmit"
   },
   "dependencies": {
-    "@types/axios": "^0.14.0",
+    "@types/lodash": "^4.14.182",
     "@vueuse/core": "^8.2.3",
-    "axios": "^0.26.1",
-    "element-plus": "^2.1.8",
-    "js-cookie": "^3.0.1",
-    "nprogress": "^0.2.0",
-    "pinia": "^2.0.13",
-    "vue": "^3.2.31",
-    "vue-router": "^4.0.14"
+    "@wangeditor/editor": "^5.1.1",
+    "@wangeditor/editor-for-vue": "^5.1.11",
+    "echarts": "^5.3.2",
+    "lodash": "^4.17.21",
+    "vue": "^3.2.31"
   },
   "devDependencies": {
     "@iconify/vue": "^3.2.1",
+    "@types/js-cookie": "^3.0.2",
     "@types/node": "^16.11.25",
     "@types/nprogress": "^0.2.0",
     "@vitejs/plugin-vue": "^2.2.2",
     "@vue/tsconfig": "^0.1.3",
+    "autoprefixer": "^10.4.7",
+    "axios": "^0.27.2",
     "consola": "^2.15.3",
+    "dayjs": "^1.11.2",
+    "element-plus": "^2.2.2",
+    "js-cookie": "^3.0.1",
+    "nprogress": "^0.2.0",
+    "pinia": "^2.0.14",
+    "pinia-plugin-persist": "^1.0.0",
+    "postcss": "^8.4.13",
+    "tailwindcss": "^3.0.24",
     "typescript": "~4.5.5",
     "unplugin-auto-import": "^0.6.9",
     "unplugin-vue-components": "^0.18.5",
     "vite": "^2.8.4",
     "vite-plugin-style-import": "^2.0.0",
+    "vite-svg-loader": "^3.3.0",
+    "vue-router": "^4.0.15",
     "vue-tsc": "^0.31.4"
   }
 }

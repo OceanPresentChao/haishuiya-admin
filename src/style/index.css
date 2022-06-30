@@ -1,0 +1,16 @@
+body {
+    -moz-osx-font-smoothing: grayscale;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    font-family: Helvetica Neue, Helvetica, PingFang SC, Hiragino Sans GB, Microsoft YaHei, Arial, sans-serif;
+    background-color: var(--color-background);
+    color: var(--color-text);
+}
+
+.titleIcon {
+    width: 1.5rem;
+    height: 1.5rem;
+    color: var(--color-icon);
+    display: inline-block;
+    margin: 0 0.25rem;
+}

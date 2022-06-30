@@ -1,146 +1,186 @@
-<template>
-    <div>
-        <el-card class="login-form-layout">
-            <el-form autoComplete="on" :model="loginForm" :rules="loginRules" ref="loginRef" label-position="left">
-                <div style="text-align: center">
-                    <el-icon :size="30" color="#f9d27d">
-                        <food />
-                    </el-icon>
-                </div>
-                <h2 class="login-title color-main">HaiShuiYa-Admin</h2>
-                <el-form-item prop="username">
-                    <el-input name="username" type="text" v-model="loginForm.username" autoComplete="on"
-                        placeholder="请输入用户名">
-                        <template #prefix>
-                            <el-icon :size="20" style="margin:auto;">
-                                <avatar />
-                            </el-icon>
-                        </template>
-                    </el-input>
-                </el-form-item>
-                <el-form-item prop="password">
-                    <el-input name="password" :type="pwdType" @keyup.enter.native="handleLogin"
-                        v-model="loginForm.password" autoComplete="on" placeholder="请输入密码">
-                        <template #prefix>
-                            <el-icon :size="20" style="margin:auto;">
-                                <postcard />
-                            </el-icon>
-                        </template>
-                        <template #suffix>
-                            <el-icon :size="20" style="margin:auto;" @click="showPwd">
-                                <View />
-                            </el-icon>
-                        </template>
-                    </el-input>
-                </el-form-item>
-                <el-form-item style="margin-bottom: 3rem;text-align: center">
-                    <el-button style="width: 90%;margin:0 auto" type="primary" :loading="loading"
-                        @click.native.prevent="handleLogin">
-                        登录
-                    </el-button>
-                </el-form-item>
-            </el-form>
-        </el-card>
-        <img :src="login_center_bg" class="login-center-layout">
-    </div>
-</template>
-
 <script setup lang="ts">
-import { isValidUsername, isValidPassword } from '@/utils/validate';
-import { setSupport, getSupport, setCookie, getCookie } from '@/utils/support';
-import login_center_bg from '@/assets/images/login_center_bg.png'
-import type { FormRules } from 'element-plus';
-import type { RuleItem } from 'async-validator';
-import { Avatar, Postcard, View, Food } from '@element-plus/icons-vue';
-import { useAdminStore } from '@/stores/admin';
-const validateUsername: RuleItem["validator"] = (rule, value, callback) => {
-    if (!isValidUsername(value)) {
-        callback(new Error('请输入正确的用户名'))
-    } else {
-        callback()
-    }
-};
-const validatePass: RuleItem["validator"] = (rule, value, callback) => {
-    if (!isValidPassword(value)) {
-        callback(new Error('密码以字母开头，长度在6~18之间，只含字母、数字和下划线'))
-    } else {
-        callback()
-    }
-};
-const loginRef = ref<HTMLFormElement>()
-const loginForm = ref({
-    username: '',
-    password: '',
-})
-const loginRules = ref<FormRules>({
-    username: [{ required: true, trigger: 'blur', validator: validateUsername }],
-    password: [{ required: true, trigger: 'blur', validator: validatePass }]
-})
-const loading = ref(false)
-const pwdType = ref('password')
-const adminStore = useAdminStore()
-const router = useRouter()
-onMounted(() => {
-    loginForm.value.username = getCookie("username");
-    loginForm.value.password = getCookie("password");
-    if (loginForm.value.username === undefined || loginForm.value.username == null || loginForm.value.username === '') {
-        loginForm.value.username = 'haishuiya';
-    }
-    if (loginForm.value.password === undefined || loginForm.value.password == null) {
-        loginForm.value.password = '';
-    }
+
+import type { FormInstance } from "element-plus";
+import { ElMessage } from "element-plus";
+import { loginRules } from './rule';
+import { bg, avatar, currentWeek } from "./assets";
+import { useAuthStore } from "@/store/auth"
+import { renderIcon } from "@/utils/tool"
+const router = useRouter();
+const loading = ref(false);
+const checked = ref(false);
+const ruleFormRef = ref<FormInstance>();
+const authStore = useAuthStore()
+const currentPage = computed(() => {
+    return authStore.currentPage;
+});
+const ruleForm = reactive({
+    username: "admin",
+    password: "admin123"
 })
 
-function showPwd() {
-    if (pwdType.value === 'password') {
-        pwdType.value = ''
-    } else {
-        pwdType.value = 'password'
-    }
-}
-function handleLogin() {
-    loginRef.value?.validate((valid: any) => {
+
+const onLogin = async (formEl: FormInstance | undefined) => {
+    loading.value = true;
+    if (!formEl) return;
+    await formEl.validate((valid, fields) => {
         if (valid) {
-            loading.value = true;
-            adminStore.login(unref(loginForm)).then(val => {
-                loading.value = false
-                setCookie('username', loginForm.value.username, 15)
-                setCookie('password', loginForm.value.password, 15)
-                router.push({ path: '/' })
-            }).finally(() => {
-                loading.value = false
-            })
+            // 模拟请求，需根据实际开发进行修改
+            setTimeout(() => {
+                loading.value = false;
+                authStore.loginByAdminName(ruleForm)
+                ElMessage({
+                    type: 'success',
+                    message: "登陆成功"
+                })
+                router.replace("/");
+            }, 2000);
         } else {
-            console.log('参数验证不合法！');
-            return false
+            loading.value = false;
+            return fields;
         }
-    })
-}
+    });
+};
 
 </script>
 
+<template>
+    <img :src="bg" class="wave" />
+    <div class="login-container">
+        <div class="img">
+            <component :is="currentWeek" />
+        </div>
+        <div class="login-box">
+            <div class="login-form">
+                <avatar class="avatar" />
+                <h2>Carillion BookStore</h2>
+                <el-form v-if="currentPage === 0" ref="ruleFormRef" :model="ruleForm" :rules="loginRules" size="large"
+                    @keyup.enter="onLogin(ruleFormRef)">
+
+                    <el-form-item prop="username">
+                        <el-input clearable :input-style="{ 'user-select': 'none' }" v-model="ruleForm.username"
+                            placeholder="账号" :prefix-icon="renderIcon('carbon:user')" />
+                    </el-form-item>
+
+                    <el-form-item prop="password">
+                        <el-input clearable :input-style="{ 'user-select': 'none' }" show-password
+                            v-model="ruleForm.password" placeholder="密码" :prefix-icon="renderIcon('carbon:locked')" />
+                    </el-form-item>
+
+                    <el-form-item>
+                        <div class="w-full h-20px flex justify-between items-center">
+                            <el-checkbox v-model="checked">记住密码</el-checkbox>
+                            <el-button text @click="authStore.setCurrentPage(1)">
+                                忘记密码?
+                            </el-button>
+                        </div>
+                        <el-button class="w-full mt-4" size="default" type="primary" :loading="loading"
+                            @click="onLogin(ruleFormRef)">
+                            登录
+                        </el-button>
+                    </el-form-item>
+
+                </el-form>
+                <Forget v-if="currentPage === 1"></Forget>
+            </div>
+        </div>
+
+    </div>
+</template>
+
 <style scoped>
-.login-form-layout {
-    position: absolute;
+:deep(.el-input-group__append, .el-input-group__prepend) {
+    padding: 0;
+}
+
+.wave {
+    position: fixed;
+    height: 100%;
     left: 0;
-    right: 0;
-    width: 360px;
-    margin: 140px auto;
-    border-top: 10px solid #409EFF;
+    bottom: 0;
+    z-index: -1;
 }
 
-.login-title {
+.login-container {
+    width: 100vw;
+    height: 100vh;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-gap: 18rem;
+    padding: 0 2rem;
+}
+
+.img {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.img img {
+    width: 500px;
+}
+
+.login-box {
+    display: flex;
+    align-items: center;
     text-align: center;
-    line-height: 2rem;
-    padding: 1rem;
 }
 
-.login-center-layout {
-    background: #409EFF;
-    width: auto;
-    height: auto;
-    max-width: 100%;
-    max-height: 100%;
-    margin-top: 200px;
+.login-form {
+    width: 360px;
+}
+
+.avatar {
+    width: 350px;
+    height: 80px;
+}
+
+.login-form h2 {
+    text-transform: uppercase;
+    margin: 15px 0;
+    color: #999;
+    font: bold 200% Consolas, Monaco, monospace;
+}
+
+@media screen and (max-width: 1180px) {
+    .login-container {
+        grid-gap: 9rem;
+    }
+
+    .login-form {
+        width: 290px;
+    }
+
+    .login-form h2 {
+        font-size: 2.4rem;
+        margin: 8px 0;
+    }
+
+    .img img {
+        width: 360px;
+    }
+
+    .avatar {
+        width: 280px;
+        height: 80px;
+    }
+}
+
+@media screen and (max-width: 968px) {
+    .wave {
+        display: none;
+    }
+
+    .img {
+        display: none;
+    }
+
+    .login-container {
+        grid-template-columns: 1fr;
+    }
+
+    .login-box {
+        justify-content: center;
+    }
 }
 </style>

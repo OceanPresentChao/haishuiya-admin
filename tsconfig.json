@@ -6,26 +6,19 @@
     "src/**/*.vue"
   ],
   "compilerOptions": {
+    "strict": true,
+    "noUnusedLocals": false,
+    "noUnusedParameters": false,
     "baseUrl": ".",
     "paths": {
       "@/*": [
         "./src/*"
       ]
-    },
-    "outDir": "dist",
-    "allowJs": true,
-    "strict": true,
-    "noUnusedLocals": false,
-    "noUnusedParameters": false,
-    "target": "es6",
-    "declaration": true,
-    "types": [
-      "@types/nprogress"
-    ]
+    }
   },
   "references": [
     {
       "path": "./tsconfig.vite-config.json"
     }
-  ],
+  ]
 }
