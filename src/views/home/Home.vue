@@ -42,9 +42,8 @@
                                 <div class="out-border">
                                     <div class="layout-title">GitHub地址</div>
                                     <div class="address-content">
-                                        <a href="https://github.com/OceanPresentChao/CarillionBookstore-admin"
-                                            target="_blank">Carillion
-                                            Bookstore</a>
+                                        <a href="https://github.com/OceanPresentChao/haishuiya-admin"
+                                            target="_blank">haishuiya-admin</a>
                                     </div>
                                 </div>
                             </el-col>
@@ -82,7 +81,7 @@
             <el-row :gutter="20">
                 <el-col :span="12">
                     <div class="out-border">
-                        <div class="layout-title">图书总览</div>
+                        <div class="layout-title">活动总览</div>
                         <div style="padding: 40px">
                             <el-row>
                                 <el-col :span="8" class="color-danger overview-item-value">{{ bookReview.offSale }}
@@ -93,9 +92,9 @@
                                 </el-col>
                             </el-row>
                             <el-row class="font-medium">
-                                <el-col :span="8" class="overview-item-title">已下架</el-col>
-                                <el-col :span="8" class="overview-item-title">已上架</el-col>
-                                <el-col :span="8" class="overview-item-title">全部图书</el-col>
+                                <el-col :span="8" class="overview-item-title">抢票活动</el-col>
+                                <el-col :span="8" class="overview-item-title">打卡活动</el-col>
+                                <el-col :span="8" class="overview-item-title">全部活动</el-col>
                             </el-row>
                         </div>
                     </div>
@@ -115,10 +114,10 @@
                                 </el-col>
                             </el-row>
                             <el-row class="font-medium">
-                                <el-col :span="6" class="overview-item-title">今日新增</el-col>
-                                <el-col :span="6" class="overview-item-title">昨日新增</el-col>
-                                <el-col :span="6" class="overview-item-title">本月新增</el-col>
-                                <el-col :span="6" class="overview-item-title">会员总数</el-col>
+                                <el-col :span="6" class="overview-item-title">今日打卡</el-col>
+                                <el-col :span="6" class="overview-item-title">昨日打卡</el-col>
+                                <el-col :span="6" class="overview-item-title">今日抢票</el-col>
+                                <el-col :span="6" class="overview-item-title">昨日抢票</el-col>
                             </el-row>
                         </div>
                     </div>

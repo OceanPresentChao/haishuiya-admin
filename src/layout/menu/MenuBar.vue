@@ -4,11 +4,11 @@
             <el-menu :default-active="route.path" class="menu" :collapse="isCollapse" background-color="#304156"
                 text-color="#303133" unique-opened router>
                 <el-menu-item index="/dashboard">
-                    <Icon icon="ic:round-store-mall-directory" class="logo " v-show="isCollapse"></Icon>
+                    <Icon icon="icon-park-outline:duck" class="logo " v-show="isCollapse"></Icon>
                     <template #title>
-                        <div class="text-center text-xl text-blue-200">
+                        <div class="text-center text-xl text-blue-200 uppercase">
                             <p>
-                                Carillion Bookstore
+                                haishuiya
                             </p>
                         </div>
                     </template>

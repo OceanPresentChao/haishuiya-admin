@@ -36,6 +36,8 @@ declare module 'vue' {
     ElSubMenu: typeof import('element-plus/es')['ElSubMenu']
     ElTabPane: typeof import('element-plus/es')['ElTabPane']
     ElTabs: typeof import('element-plus/es')['ElTabs']
+    ElTimeline: typeof import('element-plus/es')['ElTimeline']
+    ElTimelineItem: typeof import('element-plus/es')['ElTimelineItem']
     Forget: typeof import('./views/login/Forget.vue')['default']
     Header: typeof import('./layout/header/Header.vue')['default']
     Home: typeof import('./views/home/Home.vue')['default']

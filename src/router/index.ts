@@ -27,70 +27,48 @@ export const menuRoutes: Array<RouteRecordRaw> = [
         component: Layout,
         name: "product",
         meta: {
-            title: "商品管理",
+            title: "活动管理",
             icon: "carbon:product",
             roles: ["sys:goods"],
             parentId: 0,
         },
         children: [
             {
-                path: "/product/book",
+                path: "/product/activity",
                 component: () => import("@/views/product/book/BookList.vue"),
-                name: "book",
+                name: "activity",
                 meta: {
-                    title: "在售图书列表",
+                    title: "活动列表",
                     icon: "akar-icons:book",
                     roles: ["sys:goodsCategory"],
                     parentId: 34,
                 }
             },
             {
-                path: "/product/sharebook",
-                component: () => import("@/views/product/book/ShareBookList.vue"),
-                name: "sharebook",
-                meta: {
-                    title: "会员图书列表",
-                    icon: "ant-design:account-book-outlined",
-                    roles: ["sys:goodsCategory"],
-                    parentId: 34,
-                }
-            },
-            {
-                path: "/product/updateBook",
+                path: "/product/updateActivity",
                 component: () => import("@/views/product/book/BookDetail.vue"),
-                name: "updateBook",
+                name: "updateActivity",
                 props: {
                     isEdit: true
                 },
                 meta: {
-                    title: "更新图书",
+                    title: "更新活动",
                     icon: "carbon:word-cloud",
                     roles: ["sys:goodsCategory"],
                     hidden: true
                 },
             },
             {
-                path: "/product/createBook",
+                path: "/product/createActivity",
                 component: () => import("@/views/product/book/BookDetail.vue"),
-                name: "createBook",
+                name: "createActivity",
                 props: {
                     isEdit: false
                 },
                 meta: {
-                    title: "添加图书",
+                    title: "创建活动",
                     icon: "bxs:book-add",
                     roles: ["sys:goodsCategory"],
-                },
-            },
-            {
-                path: "/product/press",
-                component: () => import("@/views/product/press/PressList.vue"),
-                name: "press",
-                meta: {
-                    title: "出版社管理",
-                    icon: "carbon:word-cloud",
-                    roles: ["sys:goodsCategory"],
-                    parentId: 34,
                 },
             },
         ],
@@ -100,7 +78,7 @@ export const menuRoutes: Array<RouteRecordRaw> = [
         component: Layout,
         name: "company",
         meta: {
-            title: "公司管理",
+            title: "社团管理",
             icon: "carbon:id-management",
             roles: ["sys:goods"],
             parentId: 0,
@@ -111,7 +89,7 @@ export const menuRoutes: Array<RouteRecordRaw> = [
                 component: () => import("@/views/company/StaffList.vue"),
                 name: "staff",
                 meta: {
-                    title: "员工管理",
+                    title: "成员管理",
                     icon: "ic:baseline-manage-accounts",
                     roles: ["sys:goodsCategory"],
                     parentId: 34,

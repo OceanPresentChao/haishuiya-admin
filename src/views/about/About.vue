@@ -12,7 +12,7 @@
         <div class="flex mt-24">
             <img class="flex-none rounded-l-none rounded-r-3xl" style="max-width: 45%;height:auto;"
                 src="@/assets/mmexport1650800669816.jpg" />
-            <div class="ml-5 my-auto text-lg">
+            <div class="ml-5 my-auto text-xl">
                 <h1 class="text-3xl mb-5 border-b-2">LEARN ABOUT US</h1>
                 <p>温水让你忘记前行，冷水帮你铭记梦想。吉林大学还睡呀是全国高校首款正能量平台。吉林大学“还睡呀”温暖你的努力，冻结你的颓废。</p>
 
@@ -110,26 +110,6 @@ const memberShip = [
         name: '潮海波',
         role: '相信你那绯色樱云般的心思情愫，也一定被心间的人感知着。',
         avatar: "http://q1.qlogo.cn/g?b=qq&nk=1255342403&s=640"
-    },
-    {
-        name: '李柯凡',
-        role: 'into the sky',
-        avatar: "http://q1.qlogo.cn/g?b=qq&nk=153648356&s=640"
-    },
-    {
-        name: '许嘉豪',
-        role: 'JaCppPyRugothon，JsCssHtSpVuBoot。All_In_One!',
-        avatar: "http://q1.qlogo.cn/g?b=qq&nk=513979437&s=640"
-    },
-    {
-        name: '鞠昌毅',
-        role: 'dendendendenden一阵前奏飘着，所有事都被想了起来，千万不要去细想，一想就开始怀念起所有人来。',
-        avatar: "http://q1.qlogo.cn/g?b=qq&nk=1252951279&s=640"
-    },
-    {
-        name: '韩强',
-        role: '眼前人是心上人',
-        avatar: "http://q1.qlogo.cn/g?b=qq&nk=1838162796&s=640"
     }
 ]
 </script>
