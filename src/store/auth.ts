@@ -2,6 +2,8 @@ import Cookies from 'js-cookie'
 import { defineStore } from 'pinia'
 import { useTabsStore } from './tabs';
 import { Types } from './type'
+import { requestLogin } from '@/api/auth'
+import { ElMessage } from 'element-plus';
 
 interface UserInfo {
     name: string
@@ -20,7 +22,7 @@ export const useAuthStore = defineStore({
     state: () => {
         // 登陆显示组件判断 0：登陆 1：忘记密码，默认0：登陆
         return {
-            TokenKey: 'Login',
+            TokenKey: 'optoken',
             currentPage: 0,
             userInfo: emptyInfo
         }
@@ -49,17 +51,25 @@ export const useAuthStore = defineStore({
         setCurrentPage(page: 0 | 1) {
             this.currentPage = page
         },
-        loginByAdminName(adminForm: Object) {
-            console.log("@@@", adminForm);
-            this.setToken("eyJhbGciOiJIUzUxMiJ9.test")
+        async login(adminForm: { username: string, password: string }) {
+            const { data } = await requestLogin(adminForm)
+            if (data.code >= 200 && data.code < 300) {
+                ElMessage({
+                    type: 'success',
+                    message: "登陆成功"
+                })
+                this.setToken(String(data.data.token))
+                this.$router.push("/")
+                return true
+            }
+            return false
         },
         logOut() {
-            const router = useRouter()
             const tabsStore = useTabsStore()
             this.userInfo = emptyInfo
             this.removeToken()
             tabsStore.clearTabs()
-
+            this.$router.push('/login')
         },
     }
 })

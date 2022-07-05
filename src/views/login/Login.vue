@@ -1,12 +1,10 @@
 <script setup lang="ts">
 
 import type { FormInstance } from "element-plus";
-import { ElMessage } from "element-plus";
 import { loginRules } from './rule';
 import { bg, avatar, currentWeek } from "./assets";
 import { useAuthStore } from "@/store/auth"
 import { renderIcon } from "@/utils/tool"
-const router = useRouter();
 const loading = ref(false);
 const checked = ref(false);
 const ruleFormRef = ref<FormInstance>();
@@ -14,30 +12,21 @@ const authStore = useAuthStore()
 const currentPage = computed(() => {
     return authStore.currentPage;
 });
-const ruleForm = reactive({
+const loginForm = ref({
     username: "admin",
-    password: "admin123"
+    password: "123"
 })
 
 
 const onLogin = async (formEl: FormInstance | undefined) => {
     loading.value = true;
     if (!formEl) return;
-    await formEl.validate((valid, fields) => {
+    await formEl.validate(async (valid, fields) => {
         if (valid) {
             // 模拟请求，需根据实际开发进行修改
-            setTimeout(() => {
+            authStore.login(loginForm.value).finally(() => {
                 loading.value = false;
-                authStore.loginByAdminName(ruleForm)
-                ElMessage({
-                    type: 'success',
-                    message: "登陆成功"
-                })
-                router.replace("/");
-            }, 2000);
-        } else {
-            loading.value = false;
-            return fields;
+            })
         }
     });
 };
@@ -54,17 +43,17 @@ const onLogin = async (formEl: FormInstance | undefined) => {
             <div class="login-form">
                 <avatar class="avatar" />
                 <h2>Carillion BookStore</h2>
-                <el-form v-if="currentPage === 0" ref="ruleFormRef" :model="ruleForm" :rules="loginRules" size="large"
+                <el-form v-if="currentPage === 0" ref="ruleFormRef" :model="loginForm" :rules="loginRules" size="large"
                     @keyup.enter="onLogin(ruleFormRef)">
 
                     <el-form-item prop="username">
-                        <el-input clearable :input-style="{ 'user-select': 'none' }" v-model="ruleForm.username"
+                        <el-input clearable :input-style="{ 'user-select': 'none' }" v-model="loginForm.username"
                             placeholder="账号" :prefix-icon="renderIcon('carbon:user')" />
                     </el-form-item>
 
                     <el-form-item prop="password">
                         <el-input clearable :input-style="{ 'user-select': 'none' }" show-password
-                            v-model="ruleForm.password" placeholder="密码" :prefix-icon="renderIcon('carbon:locked')" />
+                            v-model="loginForm.password" placeholder="密码" :prefix-icon="renderIcon('carbon:locked')" />
                     </el-form-item>
 
                     <el-form-item>
